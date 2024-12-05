@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<workspace name="TestProject" type="VolanteProject">
+	<selected-element root="E:/CodeGeneration/Mappings/AllMappings.car">AllMappings/References</selected-element>
+	<open-files>
+		<file>Messages\AllMessages.car</file>
+		<file>Mappings\AllMappings.car</file>
+		<file>Main\MessagesAndFlows.car</file>
+	</open-files>
+	<recent-files>
+	</recent-files>
+	<additionalTestClasspaths>
+	</additionalTestClasspaths>
+	<additional-properties>
+		<propertymap>
+			<property name="VCS">
+				<value>
+					<propertymap>
+					</propertymap>
+				</value>
+			</property>
+		</propertymap>
+	</additional-properties>
+</workspace>

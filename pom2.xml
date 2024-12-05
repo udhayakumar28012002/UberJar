@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<properties>
+		<designer.home>D:\Volante_Designer_6.6.2</designer.home>
+	</properties>
+	<groupId>testProject-volante</groupId>
+	<version>1.0</version>
+	<artifactId>TestProject</artifactId>
+	<packaging>jar</packaging>
+	<name>FatJar</name>
+	<dependencies>
+		<!-- Add your dependencies here if needed -->
+	</dependencies>
+	<build>
+		<plugins>
+			<!-- Plugin to run codegen.bat to generate individual JARs -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>3.0.0</version>
+				<executions>
+					<execution>
+						<id>generate-jars</id>
+						<phase>package</phase>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<configuration>
+							<executable>cmd</executable>
+							<arguments>
+								<argument>/c</argument>
+								<argument>${designer.home}\tools\codegen.bat</argument>
+								<!-- Path to your codegen.bat -->
+								<argument>-platform=java</argument>
+								<!-- Specify the platform -->
+								<argument>${basedir}\Main\*.car</argument>
+								<argument>${basedir}\Mappings\*.car</argument>
+								<argument>${basedir}\Messages\*.car</argument>
+							</arguments>
+						</configuration>
+					</execution>
+					<execution>
+						<id>Copy Jars to Target Directory</id>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<phase>package</phase>
+						<configuration>
+							<executable>cmd</executable>
+							<arguments>
+								<argument>/c</argument>
+								<argument>${basedir}\copy.bat</argument>
+							</arguments>
+						</configuration>
+					</execution>
+					<execution>
+						<id>run-windows-script</id>
+						<phase>package</phase>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<configuration>
+							<executable>cmd</executable>
+							<arguments>
+								<argument>/c</argument>
+								<argument>${designer.home}\tools\mergejars.bat</argument>
+								<argument>-o</argument>
+								<argument>${basedir}\target\GeneratedUberJar.jar</argument>
+								<argument>${designer.home}\lib\runtime\simplert.jar</argument>
+								<argument>${designer.home}\lib\runtime\resourcemanager.jar</argument>
+								<argument>${designer.home}\lib\runtime\j2ee.jar</argument>
+								<argument>${designer.home}\lib\runtime\asciirt.jar</argument>
+								<argument>${designer.home}\lib\runtime\generalutils.jar</argument>
+								<argument>${designer.home}\lib\runtime\transformrt.jar</argument>
+								<argument>${basedir}\target\AllMappings.jar</argument>
+								<argument>${basedir}\target\AllMessages.jar</argument>
+								<argument>${basedir}\target\MessagesAndFlows.jar</argument>
+							</arguments>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>

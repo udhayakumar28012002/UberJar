@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<workspace name="MessagesAndFlows" type="Cartridge">
+	<selected-element root="E:/CodeGeneration/Main/MessagesAndFlows.car">MessagesAndFlows/References</selected-element>
+	<cartridgefilename>E:/CodeGeneration/Main/MessagesAndFlows.car.tmp</cartridgefilename>
+	<additionalTestClasspaths>
+	</additionalTestClasspaths>
+	<additional-properties>
+		<propertymap>
+		</propertymap>
+	</additional-properties>
+</workspace>

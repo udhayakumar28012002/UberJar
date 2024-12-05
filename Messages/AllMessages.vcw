@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<workspace name="AllMessages" type="Cartridge">
+	<selected-element root="E:/CodeGeneration/Mappings/AllMappings.car">AllMappings/References</selected-element>
+	<cartridgefilename>E:/CodeGeneration/Messages/AllMessages.car</cartridgefilename>
+	<additionalTestClasspaths>
+	</additionalTestClasspaths>
+	<additional-properties>
+		<propertymap>
+		</propertymap>
+	</additional-properties>
+</workspace>

@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<cartridge xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="6.6.2" name="AllMessages" type="Cartridge" id="66161a02-fa35-4a7a-8bd8-ae253285a5e8">
+	<version>1.0</version>
+	<read-only>false</read-only>
+	<private>
+		<summary>
+			<service name="InvoiceNO" version="1.0" type="Internal Message">
+			</service>
+			<service name="InvoiceIn" version="1.0" type="External Message">
+			</service>
+		</summary>
+	</private>
+	<internalmessage name="InvoiceNO" type="InternalMessage" id="6ab00733-b867-4c72-b950-3ab705874bc6">
+		<version>1.0</version>
+		<normalizedformat id="f50cbf33-a2b7-4408-a2d9-a6121b24b1f1">
+			<fields>
+				<field xsi:type="InternalMessageFieldType">
+					<name>ClientID</name>
+					<type>String</type>
+					<notnull>true</notnull>
+					<length>100</length>
+				</field>
+				<field xsi:type="InternalMessageFieldType">
+					<name>InvoiceDate</name>
+					<type>DateTime</type>
+					<notnull>true</notnull>
+				</field>
+				<field xsi:type="InternalMessageSectionType">
+					<name>Item</name>
+					<type>Section</type>
+					<minoccurs>1</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+					<fields>
+						<field xsi:type="InternalMessageFieldType">
+							<name>ItemID</name>
+							<type>String</type>
+							<notnull>true</notnull>
+							<length>100</length>
+						</field>
+						<field xsi:type="InternalMessageFieldType">
+							<name>Qty</name>
+							<type>Integer</type>
+							<notnull>true</notnull>
+						</field>
+						<field xsi:type="InternalMessageFieldType">
+							<name>Price</name>
+							<type>Double</type>
+							<notnull>true</notnull>
+						</field>
+						<field xsi:type="InternalMessageFieldType">
+							<name>Cost</name>
+							<type>Double</type>
+							<notnull>true</notnull>
+						</field>
+					</fields>
+				</field>
+			</fields>
+		</normalizedformat>
+		<validationrules name="Default" type="ValidationRules" id="1b835128-41b8-423a-b5b2-ed895682866d">
+		</validationrules>
+		<elementproperties>
+			<propertymap>
+				<property name="codegen.java.properties">
+					<value>
+						<propertymap type="com.tplus.transform.design.PropertiesDef">
+							<property name="Java Package Name" value="com.transform.internal.invoicebt"/>
+							<property name="Jar Name" value="%c.jar"/>
+							<property name="Manifest Entries" value="transformrt.jar"/>
+							<property name="Data Source" value=""/>
+							<property name="Generate Wrapper Bean" value=""/>
+							<property name="Bean Class Name Strategy" value=""/>
+						</propertymap>
+					</value>
+				</property>
+				<property name="codegen.cpp.properties">
+					<value>
+						<propertymap type="com.tplus.transform.design.PropertiesDef">
+						</propertymap>
+					</value>
+				</property>
+			</propertymap>
+		</elementproperties>
+	</internalmessage>
+	<externalmessage xsi:type="ASCIIDelimitedFormat" type="ASCIIDelimitedFormat" version="6.6.2" rulename="InvoiceIn" formattype="ASCIIDelimitedFormat" id="6dd5bd9c-3dda-4c0e-ae6f-842604b7b5da" >
+		<standard>ASCII Delimited</standard>
+		<version>1.0</version>
+		<asciidelimitedfields id="398956d1-1ab9-44bf-953e-20cce75e2432">
+			<batchmode>true</batchmode>
+			<delimiter><![CDATA[,]]></delimiter>
+			<contains-header>true</contains-header>
+			<contains-trailer>false</contains-trailer>
+			<headerfields>
+				<field xsi:type="ASCIIDelimitedFieldType">
+					<name>ClientID</name>
+					<datatype>String</datatype>
+					<required>true</required>
+				</field>
+				<field xsi:type="ASCIIDelimitedFieldType">
+					<name>InvoiceDate</name>
+					<datatype>DateTime</datatype>
+					<required>true</required>
+					<dateformat>yyyyMMdd-HH:mm:ss.SSS</dateformat>
+				</field>
+			</headerfields>
+			<datafields>
+				<field xsi:type="ASCIIDelimitedSectionType">
+					<name>Records</name>
+					<datatype>Section</datatype>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+					<fields>
+						<field xsi:type="ASCIIDelimitedFieldType">
+							<name>ItemID</name>
+							<datatype>String</datatype>
+							<required>true</required>
+						</field>
+						<field xsi:type="ASCIIDelimitedFieldType">
+							<name>Qty</name>
+							<datatype>Integer</datatype>
+							<required>true</required>
+						</field>
+						<field xsi:type="ASCIIDelimitedFieldType">
+							<name>Price</name>
+							<datatype>Double</datatype>
+							<required>true</required>
+						</field>
+					</fields>
+				</field>
+			</datafields>
+			<trailerfields>
+			</trailerfields>
+		</asciidelimitedfields>
+		<validationrules name="Default" type="FieldsValidationRules" id="a18dc44c-25cb-4ad8-9228-d6140ea7b398">
+			<hdrvalidationrules>
+				<fieldvalidations>
+				</fieldvalidations>
+			</hdrvalidationrules>
+			<datavalidationrules>
+				<fieldvalidations>
+					<fieldvalidation>
+						<name>E1</name>
+						<fieldname>Records.Qty</fieldname>
+						<formula><![CDATA[$value > 10]]></formula>
+						<severity>error</severity>
+						<cascade>true</cascade>
+						<error-code>EC1</error-code>
+						<actionmessage><![CDATA["Invalid Qty '" + $value + "'. It should be greater than 10."]]></actionmessage>
+					</fieldvalidation>
+				</fieldvalidations>
+			</datavalidationrules>
+			<tlrvalidationrules>
+				<fieldvalidations>
+				</fieldvalidations>
+			</tlrvalidationrules>
+		</validationrules>
+		<elementproperties>
+			<propertymap>
+				<property name="codegen.java.properties">
+					<value>
+						<propertymap type="com.tplus.transform.design.PropertiesDef">
+							<property name="Java Package Name" value="com.transform.external.%e"/>
+							<property name="Jar Name" value="%c.jar"/>
+							<property name="Manifest Entries" value="transformrt.jar asciirt.jar"/>
+							<property name="Data Source" value=""/>
+							<property name="Generate Wrapper Bean" value=""/>
+							<property name="Bean Class Name Strategy" value=""/>
+						</propertymap>
+					</value>
+				</property>
+			</propertymap>
+		</elementproperties>
+	</externalmessage>
+	<elementproperties>
+		<propertymap>
+			<property name="CARTRIDGE_INFO">
+				<value>
+					<propertymap type="com.tplus.transform.design.CartridgeInfo">
+					</propertymap>
+				</value>
+			</property>
+			<property name="DOCUMENT_PROPERTIES">
+				<value>
+					<propertymap>
+						<property name="Author" value="Bala"/>
+						<property name="Client Id" value="amogh.kavalur@volantetech.com"/>
+						<property name="Creation Time" value="Mon May 16 12:36:21 IST 2005"/>
+						<property name="Designer Build" value="2990"/>
+						<property name="Last Author" value="amogh.kavalur"/>
+						<property name="Last Save Time" value="Tue Sep 24 22:13:23 IST 2024"/>
+						<property name="Revision Number" value="149"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.cpp.bindings">
+				<value>
+					<propertymap type="com.tplus.transform.design.codegen.DefaultLanguageMapping">
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.cpp.settings">
+				<value>
+					<propertymap>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.bindings">
+				<value>
+					<propertymap type="com.tplus.transform.design.codegen.DefaultLanguageMapping">
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.general">
+				<value>
+					<propertymap>
+						<property name="additionalClasspath" value=""/>
+						<property name="additionalTestClasspath" value=""/>
+						<property name="debugInfo" value="false"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.options">
+				<value>
+					<propertymap type="com.tplus.transform.design.codegen.java.JavaCodeGeneratorOptions">
+						<property name="WebSphere.VARIANT.Liberty Profile" value="false"/>
+						<property name="WebSphere.VARIANT.WebSphere Full Profile" value="true"/>
+						<property name="ejb-jndi-prefix" value=""/>
+						<property name="isEJB" value="true"/>
+						<property name="isGenerateALSB" value="false"/>
+						<property name="isGenerateEAR" value="false"/>
+						<property name="isGenerateJNDILinks" value="true"/>
+						<property name="isJBoss" value="true"/>
+						<property name="isLocal" value="true"/>
+						<property name="isOSGI" value="true"/>
+						<property name="isRemote" value="true"/>
+						<property name="isVolante" value="true"/>
+						<property name="isWAR" value="false"/>
+						<property name="isWLEVS" value="false"/>
+						<property name="isWebLogic" value="true"/>
+						<property name="isWebSphere" value="true"/>
+						<property name="isWildFly" value="false"/>
+						<property name="osgi-options">
+							<value>
+								<propertymap>
+									<property name="exclude-locked-cartridge-jars" value="false"/>
+									<property name="exclude-thirdparty-dependency" value="false"/>
+									<property name="exclude-volante-dependencies" value="false"/>
+									<property name="include-dependencies" value="false"/>
+									<property name="include-test-dependencies" value="false"/>
+								</propertymap>
+							</value>
+						</property>
+						<property name="resource-references">
+							<value>
+								<propertylist>
+								</propertylist>
+							</value>
+						</property>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.properties">
+				<value>
+					<propertymap type="com.tplus.transform.design.PropertiesDef">
+						<property name="Max Class Length" value="150"/>
+						<property name="Java Package Name" value="com.transform.cartridge.%c"/>
+					</propertymap>
+				</value>
+			</property>
+		</propertymap>
+	</elementproperties>
+</cartridge>
+
